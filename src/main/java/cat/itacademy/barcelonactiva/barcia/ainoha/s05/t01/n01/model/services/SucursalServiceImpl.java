@@ -6,6 +6,8 @@ import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.dto.Sucursal
 import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.repository.ISucursalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -32,13 +34,7 @@ public class SucursalServiceImpl implements ISucursalService{
 
     @Override
     public SucursalDTO updateSucursal(Long pk_SucursalID, SucursalDTO sucursal) {
-       /* try {
-            sucursal.setPk_SucursalID(pk_SucursalID);
-            SucursalDTO updatedSucursal = iSucursalService.updateSucursal(sucursal);
-            return new ResponseEntity<>(updatedSucursal, HttpStatus.OK);
-        } catch (SucursalException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }*/
+
         if(pk_SucursalID == null){
             throw new SucursalException("Sucursal ID can't be null");
         }
@@ -60,15 +56,13 @@ public class SucursalServiceImpl implements ISucursalService{
 
     @Override
     public SucursalDTO getSucursalById(Long pk_SucursalID) {
-       Optional<Sucursal> optionalSucursal = iSucursalRepository.findById(pk_SucursalID);
-       Sucursal sucursal =optionalSucursal.get();
-        return UserMapper.mapToSucursalDto(sucursal);
+       return  UserMapper.mapToSucursalDto(iSucursalRepository.findById(pk_SucursalID).orElseThrow(()->new SucursalException("Sucursal with id: " + pk_SucursalID + " not found")));
+
     }
 
     @Override
     public List<SucursalDTO> getAllSucurals() {
         List<Sucursal> sucursalList = iSucursalRepository.findAll();
-
         return sucursalList.stream().map(UserMapper::mapToSucursalDto).collect(Collectors.toList());
     }
 

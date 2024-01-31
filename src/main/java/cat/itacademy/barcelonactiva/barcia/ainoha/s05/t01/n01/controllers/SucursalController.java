@@ -41,29 +41,12 @@ public class SucursalController {
 
     @GetMapping("/getSucursalById/{pk_SucursalID}")
     public ResponseEntity<SucursalDTO> getSucursalById(@PathVariable("pk_SucursalID") Long pk_SucursalID) {
-        try {
-            SucursalDTO sucursal = iSucursalService.getSucursalById(pk_SucursalID);
-            return new ResponseEntity<>(sucursal, HttpStatus.OK);
-        } catch (SucursalException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return ResponseEntity.ok().body(iSucursalService.getSucursalById(pk_SucursalID));
     }
 
     @GetMapping("/getAllSucursals")
     public ResponseEntity<List<SucursalDTO>> getAllSucursals() {
-
-       try {
-            List<SucursalDTO> sucursalList = iSucursalService.getAllSucurals();
-            if (sucursalList.isEmpty()) {
-
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            } else {
-
-                return ResponseEntity.ok().body(iSucursalService.getAllSucurals());
-            }
-        }catch(Exception ex){
-                return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-            }
+        return ResponseEntity.ok().body(iSucursalService.getAllSucurals());
         }
     }
 
