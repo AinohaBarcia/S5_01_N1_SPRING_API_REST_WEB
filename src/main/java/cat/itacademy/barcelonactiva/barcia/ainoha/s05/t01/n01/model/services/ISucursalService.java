@@ -6,16 +6,17 @@ import java.util.List;
 
 public interface ISucursalService {
 
-    SucursalDTO createSucursal(SucursalDTO sucursal);
+    void createSucursal(SucursalDTO sucursal);
 
-    SucursalDTO updateSucursal (Long pk_SucursalID, SucursalDTO sucursal);
-
+   // SucursalDTO updateSucursal (Long pk_SucursalID, SucursalDTO sucursal);
+    SucursalDTO updateSucursal (SucursalDTO sucursalDTO);
 
     void deleteSucursalById(Long pk_SucursalID)throws SecurityException;
 
     SucursalDTO getSucursalById (Long pk_SucursalID);
 
     List<SucursalDTO> getAllSucurals();
+
 
 
 }

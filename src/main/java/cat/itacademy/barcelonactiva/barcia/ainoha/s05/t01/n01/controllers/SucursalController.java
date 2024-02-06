@@ -5,49 +5,67 @@ import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.SucursalException;
 import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.domain.Sucursal;
 import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.dto.SucursalDTO;
 import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.services.ISucursalService;
-import ch.qos.logback.core.model.Model;
+
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/api/v1")
 public class SucursalController {
     @Autowired
     private ISucursalService iSucursalService;
 
 
-    @PostMapping("/createSucursal")
-    public ResponseEntity<SucursalDTO> createSucursal(@RequestBody SucursalDTO sucursal) {
-        SucursalDTO sucursalObj = iSucursalService.createSucursal(sucursal);
-        return new ResponseEntity<>(sucursalObj, HttpStatus.CREATED);
+    //TODO los Get me devuelven lo que tengo en el html y los POST ejecutan el metodo: hay que cambiar los return  del PSt a "redirect:/api/v1"
+    @GetMapping("/createSucursal")
+    public String createSucursalForm(Model model) {
+        SucursalDTO sucursalObj = new SucursalDTO();
+        model.addAttribute("sucursalDto",sucursalObj);
+        return "createSucursal";
+    }
+    @PostMapping("/add")
+    public String saveSucursal (@ModelAttribute("sucursalDto")SucursalDTO sucursalDto){
+        iSucursalService.createSucursal(sucursalDto);
+        return "redirect:/api/v1/";
     }
 
-    @PutMapping("/updateSucursalById/{pk_SucursalID}")
-    public ResponseEntity<SucursalDTO> updateSucursalById(@PathVariable(value = "id") Long pk_SucursalID, @RequestBody SucursalDTO sucursalDTO) {
-        return ResponseEntity.ok().body(iSucursalService.updateSucursal(pk_SucursalID,sucursalDTO));
+    @GetMapping("/updateForm/{pk_SucursalId}")
+    public String updateForm(@PathVariable (value = "pk_SucursalId") Long pk_SucursalId, Model model){
+        model.addAttribute("sucursalDTO", iSucursalService.getSucursalById(pk_SucursalId));
+        return "updateSucursal";
+    }
+    @PostMapping("/updateSucursalById/{pk_SucursalId}")
+    public String updateSucursalById(@PathVariable(value = "pk_SucursalId") Long pk_SucursalId,
+                                     @ModelAttribute("sucursalDTO") SucursalDTO sucursalDTO, Model model) {
+        iSucursalService.updateSucursal(sucursalDTO);
+        return "redirect:/api/v1/";
+    }
+    @GetMapping("/deleteSucursalById/{pk_SucursalId}")
+    public String deleteSucursalById(@PathVariable Long pk_SucursalId) {
+        iSucursalService.deleteSucursalById(pk_SucursalId);
+        return  "redirect:/api/v1/";
+    }
+    @GetMapping("/getOne/{pk_SucursalId}")
+    public String getOne(@PathVariable (value = "pk_SucursalId") Long pk_SucursalId, Model model){
+        model.addAttribute("sucursalDTO", iSucursalService.getSucursalById(pk_SucursalId));
+        return "getOne";
     }
 
-    @DeleteMapping("/deleteSucursalById/{pk_SucursalID}")
-    public ResponseEntity<HttpStatus> deleteSucursalById(@PathVariable Long pk_SucursalID) {
-        iSucursalService.deleteSucursalById(pk_SucursalID);
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/getSucursalById/{pk_SucursalID}")
-    public ResponseEntity<SucursalDTO> getSucursalById(@PathVariable("pk_SucursalID") Long pk_SucursalID) {
-        return ResponseEntity.ok().body(iSucursalService.getSucursalById(pk_SucursalID));
-    }
-
-    @GetMapping("/getAllSucursals")
-    public ResponseEntity<List<SucursalDTO>> getAllSucursals() {
-        return ResponseEntity.ok().body(iSucursalService.getAllSucurals());
+    @GetMapping("/")
+    public String getAllSucursals(Model model) {
+       List<SucursalDTO>sucursalsDto = iSucursalService.getAllSucurals();
+        model.addAttribute("sucursalsDto",sucursalsDto);
+        return "sucursals";
         }
+
+
     }
 
 

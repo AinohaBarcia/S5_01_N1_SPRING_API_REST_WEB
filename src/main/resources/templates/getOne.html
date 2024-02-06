@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sucursal </title>
+    <!--CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#"> Sucursal control</a>
+    <!--Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link"
+              href="/api/v1/createSucursal" > New Sucursal</a></li>
+        </ul>
+    </div>
+</nav>
+
+    <div class ="container">
+        <div class="row">
+            <h1>Sucursal</h1>
+        </div>
+        <table class="table table_striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Sucursal name</th>
+                    <th>Country name</th>
+                    <th>Country type</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <td th:text = "${sucursalDTO.pk_SucursalId}">
+                <td th:text = "${sucursalDTO.name}">
+                <td th:text = "${sucursalDTO.country}">
+                <td th:text = "${sucursalDTO.type}">
+
+               <td>
+               <a th:href="@{updateForm/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}" class="btn btn-info">Update</a>
+               <a th:href="@{deleteSucursalById/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}" class="btn btn-danger">Delete</a>
+           </td>
+
+            <tr class="table-active">
+
+            </tr>
+            <tr>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+
+</body>
+</html>

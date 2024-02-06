@@ -6,21 +6,20 @@ import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.dto.Sucursal
 public class UserMapper {
 
     public static SucursalDTO mapToSucursalDto (Sucursal sucursal) {
-        SucursalDTO sucursalDTO = new SucursalDTO(
+        SucursalDTO sucursalDto = new SucursalDTO(
                 sucursal.getPk_SucursalId(),
-                sucursal.getNameSucursal(),
-                sucursal.getCountryName()
-        );
-        return sucursalDTO;
+                sucursal.getName(),
+                sucursal.getCountry());
+
+        return sucursalDto;
     }
 
     public static Sucursal mapToSucursal (SucursalDTO sucursalDTO){
         Sucursal sucursal = new Sucursal(
-                sucursalDTO.getPk_SucursalID(),
-                sucursalDTO.getNameSucursal(),
-                sucursalDTO.getCountryName()
+               sucursalDTO.getPk_SucursalId(),
+                sucursalDTO.getName(),
+                sucursalDTO.getCountry());
 
-        );
         return sucursal;
     }
 }

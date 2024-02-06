@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration of sucursals</title>
+    <!--CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <a class="navbar-brand" href="#"> Add new sucursal</a>
+    <!--Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link"
+
+        </ul>
+    </div>
+</nav>
+<br>
+<div class="container">
+    <div class = "row">
+        <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h1 class="text-center">Sucursal register</h1>
+            <div class="card-body">
+                <form th:action="@{/api/v1/add}" th:object="${sucursalDto}" method="POST">
+                    <div class="form-group">
+                        <label> Name:</label>
+                        <input type="text" name="name" th:field="*{name}" class="form-control"
+                               placeholder="Tell me sucursal name: " required>
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <label> Country name:</label>
+                        <input type="text" name="country" th:field="*{country}" class="form-control"
+                               placeholder="Tell me the country: " required>
+                    </div>
+                    <br>
+                    <div class="box-footer">
+                        <button class="btb btn-success">Save</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

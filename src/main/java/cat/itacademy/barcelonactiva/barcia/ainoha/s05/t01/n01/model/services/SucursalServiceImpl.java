@@ -6,8 +6,6 @@ import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.dto.Sucursal
 import cat.itacademy.barcelonactiva.barcia.ainoha.s05.t01.n01.model.repository.ISucursalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
@@ -23,30 +21,39 @@ public class SucursalServiceImpl implements ISucursalService{
     private ISucursalRepository iSucursalRepository;
 
     @Override
-    public SucursalDTO createSucursal(SucursalDTO sucursalDTO) {
+    public void  createSucursal(SucursalDTO sucursalDTO) {
         Sucursal sucursal = UserMapper.mapToSucursal(sucursalDTO);
-
         Sucursal savedSucursal = iSucursalRepository.save(sucursal);
-        SucursalDTO savedSucursalDTO = UserMapper.mapToSucursalDto(savedSucursal);
 
-        return savedSucursalDTO;
     }
 
     @Override
-    public SucursalDTO updateSucursal(Long pk_SucursalID, SucursalDTO sucursal) {
-
-        if(pk_SucursalID == null){
-            throw new SucursalException("Sucursal ID can't be null");
-        }
-        Sucursal existSucursal = iSucursalRepository.findById(pk_SucursalID)
-                .orElseThrow(() ->
-                     new SucursalException("Sucursal with id " + pk_SucursalID + " not found"));
-
-                existSucursal.setNameSucursal(sucursal.getNameSucursal());
-                existSucursal.setCountryName(sucursal.getCountryName());
-
-        return UserMapper.mapToSucursalDto(iSucursalRepository.save(existSucursal));
+    public SucursalDTO updateSucursal (SucursalDTO sucursalDTO){
+        Sucursal existingSucursal = iSucursalRepository.findById(sucursalDTO.getPk_SucursalId()).get();
+        existingSucursal.setName(sucursalDTO.getName());
+        existingSucursal.setCountry(sucursalDTO.getCountry());
+        Sucursal updateSucursal=iSucursalRepository.save(existingSucursal);
+        return UserMapper.mapToSucursalDto(updateSucursal);
     }
+    /*public SucursalDTO updateSucursal(Long pk_SucursalID, SucursalDTO sucursalDto) {
+
+        Sucursal sucursal = UserMapper.mapToSucursal(sucursalDto);
+        Optional<Sucursal>sucursal1 = iSucursalRepository.findById(pk_SucursalID);
+        if (sucursal1.isPresent()){
+            Sucursal updatedSucursal = sucursal1.get();
+            updatedSucursal.setPk_SucursalId(sucursal.getPk_SucursalId());
+            updatedSucursal.setName(sucursal.getName());
+            updatedSucursal.setCountry(sucursal.getCountry());
+
+            iSucursalRepository.save(updatedSucursal);
+
+            return UserMapper.mapToSucursalDto(updatedSucursal);
+        }else {
+            throw new SucursalException("Not found");
+        }
+
+
+    }*/
 
     @Override
     public void deleteSucursalById(Long pk_SucursalID)  {
