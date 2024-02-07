@@ -23,7 +23,6 @@ public class SucursalController {
     private ISucursalService iSucursalService;
 
 
-    //TODO los Get me devuelven lo que tengo en el html y los POST ejecutan el metodo: hay que cambiar los return  del PSt a "redirect:/api/v1"
     @GetMapping("/createSucursal")
     public String createSucursalForm(Model model) {
         SucursalDTO sucursalObj = new SucursalDTO();

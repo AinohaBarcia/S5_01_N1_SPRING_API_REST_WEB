@@ -8,7 +8,6 @@ public interface ISucursalService {
 
     void createSucursal(SucursalDTO sucursal);
 
-   // SucursalDTO updateSucursal (Long pk_SucursalID, SucursalDTO sucursal);
     SucursalDTO updateSucursal (SucursalDTO sucursalDTO);
 
     void deleteSucursalById(Long pk_SucursalID)throws SecurityException;

@@ -35,25 +35,6 @@ public class SucursalServiceImpl implements ISucursalService{
         Sucursal updateSucursal=iSucursalRepository.save(existingSucursal);
         return UserMapper.mapToSucursalDto(updateSucursal);
     }
-    /*public SucursalDTO updateSucursal(Long pk_SucursalID, SucursalDTO sucursalDto) {
-
-        Sucursal sucursal = UserMapper.mapToSucursal(sucursalDto);
-        Optional<Sucursal>sucursal1 = iSucursalRepository.findById(pk_SucursalID);
-        if (sucursal1.isPresent()){
-            Sucursal updatedSucursal = sucursal1.get();
-            updatedSucursal.setPk_SucursalId(sucursal.getPk_SucursalId());
-            updatedSucursal.setName(sucursal.getName());
-            updatedSucursal.setCountry(sucursal.getCountry());
-
-            iSucursalRepository.save(updatedSucursal);
-
-            return UserMapper.mapToSucursalDto(updatedSucursal);
-        }else {
-            throw new SucursalException("Not found");
-        }
-
-
-    }*/
 
     @Override
     public void deleteSucursalById(Long pk_SucursalID)  {
