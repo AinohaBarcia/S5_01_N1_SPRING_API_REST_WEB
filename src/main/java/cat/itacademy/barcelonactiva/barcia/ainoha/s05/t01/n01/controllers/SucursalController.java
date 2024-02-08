@@ -14,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -44,7 +45,7 @@ public class SucursalController {
     public String updateSucursalById(@PathVariable(value = "pk_SucursalId") Long pk_SucursalId,
                                      @ModelAttribute("sucursalDTO") SucursalDTO sucursalDTO, Model model) {
         iSucursalService.updateSucursal(sucursalDTO);
-        return "redirect:/api/v1/";
+        return "/updateSucursal";
     }
     @GetMapping("/deleteSucursalById/{pk_SucursalId}")
     public String deleteSucursalById(@PathVariable Long pk_SucursalId) {
@@ -53,8 +54,12 @@ public class SucursalController {
     }
     @GetMapping("/getOne/{pk_SucursalId}")
     public String getOne(@PathVariable (value = "pk_SucursalId") Long pk_SucursalId, Model model){
-        model.addAttribute("sucursalDTO", iSucursalService.getSucursalById(pk_SucursalId));
-        return "getOne";
+        SucursalDTO sucursalDTO=iSucursalService.getSucursalById(pk_SucursalId);
+        List<SucursalDTO>sucursalsDTO = new ArrayList<>();
+        sucursalsDTO.add(sucursalDTO);
+        model.addAttribute("sucursalsDto", sucursalsDTO);
+        return "sucursals";
+
     }
 
     @GetMapping("/")

@@ -44,10 +44,10 @@
                 <td th:text = "${sucursalDTO.type}">
 
                <td>
-               <a th:href="@{updateForm/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}" class="btn btn-info">Update</a>
-               <a th:href="@{deleteSucursalById/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}"
+               <a th:href="@{/api/v1/updateForm/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}" class="btn btn-info">Update</a>
+               <a th:href="@{/api/v1/deleteSucursalById/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}"
                   class="btn btn-danger" th:text="'Delete'" title="Eliminar registro" onclick="return confirm('¿Seguro que quieres eliminar la sucursal?')"></a>
-               <a th:href="@{getOne/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}" class="btn btn-warning">Info</a>
+               <a th:href="@{/api/v1/getOne/{pk_SucursalId}(pk_SucursalId=${sucursalDTO.pk_SucursalId})}" class="btn btn-warning">Info</a>
            </td>
             </tr>
             <tr class="table-active">
