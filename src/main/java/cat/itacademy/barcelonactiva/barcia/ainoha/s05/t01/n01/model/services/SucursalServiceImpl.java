@@ -24,7 +24,6 @@ public class SucursalServiceImpl implements ISucursalService{
     public void  createSucursal(SucursalDTO sucursalDTO) {
         Sucursal sucursal = UserMapper.mapToSucursal(sucursalDTO);
         Sucursal savedSucursal = iSucursalRepository.save(sucursal);
-
     }
 
     @Override
@@ -37,14 +36,22 @@ public class SucursalServiceImpl implements ISucursalService{
     }
 
     @Override
-    public void deleteSucursalById(Long pk_SucursalID)  {
-        iSucursalRepository.deleteById(pk_SucursalID);
-        System.out.println("Sucursal with id: " + pk_SucursalID + " is deleted");
-    }
+    public SucursalDTO deleteSucursalById(Long pk_SucursalID) throws SucursalException   {
+
+            return iSucursalRepository.findById(pk_SucursalID)
+                    .map(sucursal -> {
+                        iSucursalRepository.deleteById(pk_SucursalID);
+                        System.out.println("Sucursal with id: " + pk_SucursalID + " is deleted");
+                        return UserMapper.mapToSucursalDto(sucursal);
+                    })
+                    .orElseThrow(() -> new SucursalException("Sucursal with id: " + pk_SucursalID + " not found"));
+        }
+
 
     @Override
     public SucursalDTO getSucursalById(Long pk_SucursalID) {
-       return  UserMapper.mapToSucursalDto(iSucursalRepository.findById(pk_SucursalID).orElseThrow(()->new SucursalException("Sucursal with id: " + pk_SucursalID + " not found")));
+       return  UserMapper.mapToSucursalDto(iSucursalRepository.findById(pk_SucursalID).
+               orElseThrow(()->new SucursalException("Sucursal with id: " + pk_SucursalID + " not found")));
 
     }
 

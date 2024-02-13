@@ -10,9 +10,9 @@ public interface ISucursalService {
 
     SucursalDTO updateSucursal (SucursalDTO sucursalDTO);
 
-    void deleteSucursalById(Long pk_SucursalID)throws SecurityException;
+    SucursalDTO deleteSucursalById(Long pk_SucursalID)throws SecurityException;
 
-    SucursalDTO getSucursalById (Long pk_SucursalID);
+    SucursalDTO getSucursalById (Long pk_SucursalID)throws SecurityException;
 
     List<SucursalDTO> getAllSucurals();
 
