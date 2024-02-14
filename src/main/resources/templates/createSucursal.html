@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration of sucursals</title>
+
     <!--CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
           rel="stylesheet"
@@ -11,12 +12,13 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md bg-dark navbar-dark">
-    <a class="navbar-brand" href="#"> Add new sucursal</a>
+    <a class="navbar-brand" href> Add new sucursal</a>
+
     <!--Navbar links -->
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
         <ul class="navbar-nav">
             <li class="nav-item"><a class="nav-link"
-
+                                    href="/api/v1/" > Home</a></li>
         </ul>
     </div>
 </nav>
@@ -48,5 +50,10 @@
         </div>
     </div>
 </div>
+<footer th:fragment="footer" class="bg-black text-center text-black fixed-bottom">
+    <div class="container">
+        <p>Created by Ainoha Barcia 2024</p>
+    </div>
+</footer>
 </body>
 </html>
